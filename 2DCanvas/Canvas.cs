@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
 namespace dbarbee.GraphicsEngine._2DCanvas
 {
@@ -18,9 +19,9 @@ namespace dbarbee.GraphicsEngine._2DCanvas
 
             //this.Paint += new PaintEventHandler(Canvas_Paint);
 
-            szViewport = new Size(100, 100);
-            szScreen = new Size(-1, -1);
-            ptViewport = new Point(50, 50);
+            szViewport = new flPoint(110, 110);
+            szScreen = new flPoint(-1, -1);
+            ptViewport = new flPoint(55, 55);
 
             CurrentPen = Pens.Black;
             CurrentBrush = Brushes.LightGray;
@@ -33,26 +34,31 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             return c._graphics;
         }
 
+        public IClassFactory ClassFactory
+        {
+            get { return _2DCanvas.ClassFactory.Instance; }
+        }
+
         public Dictionary<string, IDrawingObject> ObjectList = new Dictionary<string, IDrawingObject>();
 
-        public Size szViewport { get; set; }
-        public Point ptViewport { get; set; }
-        private Size szScreen { get; set; }
+        public IflPoint szViewport { get; set; }
+        public IflPoint ptViewport { get; set; }
+        private IflPoint szScreen { get; set; }
 
         private Point viewportToScreen(Point p)
         {
             Point value = new Point();
-            value.X = (szScreen.Width * (p.X + ptViewport.X)) / szViewport.Width;
-            value.Y = szScreen.Height - ((szScreen.Height * (p.Y + ptViewport.Y)) / szViewport.Height);
+            value.X = (int)Math.Round((szScreen.X * (p.X + ptViewport.X)) / szViewport.X);
+            value.Y = (int)Math.Round(szScreen.Y - (szScreen.Y * (p.Y + ptViewport.Y)) / szViewport.Y);
 
             return value;
         }
 
-        private Point viewportToScreen(flPoint p)
+        private Point viewportToScreen(IflPoint p)
         {
             Point value = new Point();
-            value.X = (int)Math.Round((szScreen.Width * (p.X + ptViewport.X)) / szViewport.Width);
-            value.Y = szScreen.Height - (int)Math.Round((szScreen.Height * (p.Y + ptViewport.Y)) / szViewport.Height);
+            value.X = (int)Math.Round((szScreen.X * (p.X + ptViewport.X)) / szViewport.X);
+            value.Y = (int)Math.Round(szScreen.Y - (szScreen.Y * (p.Y + ptViewport.Y)) / szViewport.Y);
 
             return value;
         }
@@ -67,7 +73,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             return value;
         }
 
-        private Point[] viewportToScreen(flPoint[] p)
+        private Point[] viewportToScreen(IflPoint[] p)
         {
             Point[] value = new Point[p.Length];
             for (int idx = 0; idx < p.Length; idx++)
@@ -82,8 +88,8 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             //return p;
 
             flPoint value = new flPoint();
-            value.X = (szScreen.Width * s.Width) / szViewport.Width;
-            value.Y = ((szScreen.Height * s.Height) / szViewport.Height);
+            value.X = (szScreen.X * s.Width) / szViewport.X;
+            value.Y = ((szScreen.Y * s.Height) / szViewport.Y);
 
             return value;
         }
@@ -93,8 +99,8 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             //return p;
 
             flPoint value = new flPoint();
-            value.X = (szScreen.Width * p.X) / szViewport.Width;
-            value.Y = ((szScreen.Height * p.Y) / szViewport.Height);
+            value.X = (szScreen.X * p.X) / szViewport.X;
+            value.Y = ((szScreen.Y * p.Y) / szViewport.Y);
 
             return value;
         }
@@ -104,23 +110,38 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             //return p;
 
             flPoint value = new flPoint();
-            value.X = (int)Math.Round((szScreen.Width * p.X) / szViewport.Width);
-            value.Y = (int)Math.Round((szScreen.Height * p.Y) / szViewport.Height);
+            value.X = (int)Math.Round((szScreen.X * p.X) / szViewport.X);
+            value.Y = (int)Math.Round((szScreen.Y * p.Y) / szViewport.Y);
 
             return value;
         }
 
+        public void DrawPoint(IflPoint p)
+        {
+            Graphics g = this;
+            Point scrCenter = viewportToScreen(p);
+            flPoint scrRadii = scaleToScreen(new flPoint(.5, .5));
+            System.Drawing.Rectangle boundingRec = new System.Drawing.Rectangle(
+                (int)Math.Round(scrCenter.X - scrRadii.X), (int)Math.Round(scrCenter.Y - scrRadii.Y),
+                (int)Math.Round(2 * scrRadii.X), (int)Math.Round(2 * scrRadii.Y));
+            //g.DrawEllipse(CurrentPen as Pen, boundingRec);
+            g.FillEllipse(CurrentBrush as Brush, boundingRec);
+        }
+
+        // Lines
+        // Draw an individual point on the screen as a small filled circle 
+        //  with diameter of 1 logical unit
         public void DrawLine(Point p1, Point p2)
         {
             Graphics g = this;
-            g.DrawLine(CurrentPen, viewportToScreen(p1), viewportToScreen(p2));
+            g.DrawLine(CurrentPen as Pen, viewportToScreen(p1), viewportToScreen(p2));
         }
-        public void DrawLine(flPoint p1, flPoint p2)
+        public void DrawLine(IflPoint p1, IflPoint p2)
         {
             Graphics g = this;
-            g.DrawLine(CurrentPen, viewportToScreen(p1), viewportToScreen(p2));
+            g.DrawLine(CurrentPen as Pen, viewportToScreen(p1), viewportToScreen(p2));
         }
-        public void DrawLine(Line l)
+        public void DrawLine(ILine l)
         {
             DrawLine(l.P1, l.P2);
         }
@@ -133,7 +154,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             }
         }
 
-        public void DrawPolyLine(flPoint[] points)
+        public void DrawPolyLine(IflPoint[] points)
         {
             Graphics g = this;
             for (int idx = 0; idx < points.Length - 1; idx++)
@@ -142,7 +163,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             }
         }
 
-        public void DrawLines(Line[] lines)
+        public void DrawLines(ILine[] lines)
         {
             Graphics g = this;
             for (int idx = 0; idx < lines.Length; idx++)
@@ -155,25 +176,36 @@ namespace dbarbee.GraphicsEngine._2DCanvas
         {
             Graphics g = this;
             Point[] screenPoints = viewportToScreen(points);
-            g.DrawPolygon(CurrentPen, screenPoints);
+            g.DrawPolygon(CurrentPen as Pen, screenPoints);
             if (fill)
             {
-                g.FillPolygon(CurrentBrush, screenPoints);
+                g.FillPolygon(CurrentBrush as Brush, screenPoints);
             }
         }
 
-        public void DrawPolygon(flPoint[] points, bool fill = false)
+        public void DrawPolygon(IflPoint[] points, bool fill = false)
         {
             Graphics g = this;
             Point[] screenPoints = viewportToScreen(points);
-            g.DrawPolygon(CurrentPen, screenPoints);
+            g.DrawPolygon(CurrentPen as Pen, screenPoints);
             if (fill)
             {
-                g.FillPolygon(CurrentBrush, screenPoints);
+                g.FillPolygon(CurrentBrush as Brush, screenPoints);
             }
         }
 
-        public void DrawCircle(flPoint c, double r, bool fill = false)
+        public void DrawPolygon(IPolygon polygon, bool fill = false)
+        {
+            Graphics g = this;
+            Point[] screenPoints = viewportToScreen(polygon.Points);
+            g.DrawPolygon(CurrentPen as Pen, screenPoints);
+            if (fill)
+            {
+                g.FillPolygon(CurrentBrush as Brush, screenPoints);
+            }
+        }
+
+        public void DrawCircle(IflPoint c, double r, bool fill = false)
         {
             Graphics g = this;
             Point scrCenter = viewportToScreen(c);
@@ -181,10 +213,10 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             System.Drawing.Rectangle boundingRec = new System.Drawing.Rectangle(
                 (int)Math.Round(scrCenter.X - scrRadii.X), (int)Math.Round(scrCenter.Y - scrRadii.Y),
                 (int)Math.Round(2 * scrRadii.X), (int)Math.Round(2 * scrRadii.Y));
-            g.DrawEllipse(CurrentPen, boundingRec);
+            g.DrawEllipse(CurrentPen as Pen, boundingRec);
             if (fill)
             {
-                g.FillEllipse(CurrentBrush, boundingRec);
+                g.FillEllipse(CurrentBrush as Brush, boundingRec);
             }
 
             // flPoint[] circle = new flPoint[circularTessellation];
@@ -229,32 +261,68 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             // DrawPolygon(g, circle);
         }
 
-        public Pen CurrentPen { get; set; }
-        public Brush CurrentBrush { get; set; }
+        public object CurrentPen { get; set; }
+        public object CurrentBrush { get; set; }
 
         private void DrawGrid(Graphics g)
         {
-            g.DrawRectangle(CurrentPen, new System.Drawing.Rectangle(0, 0, szScreen.Width, szScreen.Height));
+            g.DrawRectangle(CurrentPen as Pen, new System.Drawing.Rectangle(0, 0, (int)szScreen.X, (int)szScreen.Y));
 
-            Pen p2 = new Pen(Color.Gray, 2);
+            Pen p1 = new Pen(Color.White, 1);
+            Pen p2 = new Pen(Color.White, 2);
 
-            flPoint gridSpacing = scaleToScreen(new Point(10, 10));
-            for (double x = 0; x < szScreen.Width; x += gridSpacing.X)
+            double gridSpacing = 10;
+
+            double x = -(ptViewport.X);
+            if (x % 10 != 0)
             {
-                g.DrawLine(Pens.Gray, (int)Math.Round(x), 0, (int)Math.Round(x), szScreen.Height);
+                x -= (ptViewport.X % 10);
             }
-            for (double y = 0; y < szScreen.Height; y += gridSpacing.Y)
+            for (; x <= szViewport.X - ptViewport.X; x += gridSpacing)
             {
-                g.DrawLine(Pens.Gray, 0, (int)Math.Round(y), szScreen.Width, (int)Math.Round(y));
+                g.DrawLine(x != 0 ? p1 : p2,
+                           viewportToScreen(new flPoint(x, -ptViewport.Y)),
+                           viewportToScreen(new flPoint(x, szScreen.Y)));
+            }
+            for (x = -(ptViewport.X); x <= szViewport.X - ptViewport.X; x += 1)
+            {
+                double hashSize = 1;
+                if (x % 5 == 0)
+                    hashSize = 2;
+                g.DrawLine(x != 0 ? p1 : p2,
+                           viewportToScreen(new flPoint(x, -hashSize)),
+                           viewportToScreen(new flPoint(x, hashSize)));
+            }
+
+            double y = -(ptViewport.Y);
+            if (y % 10 != 0)
+            {
+                y -= (ptViewport.Y % 10);
+            }
+            for (; y <= szViewport.Y - ptViewport.Y; y += gridSpacing)
+            {
+                g.DrawLine(y != 0 ? p1 : p2,
+                           viewportToScreen(new flPoint(-ptViewport.X, y)),
+                           viewportToScreen(new flPoint(szScreen.X, y)));
+            }
+            for (y = -(ptViewport.Y); y <= szViewport.Y - ptViewport.Y; y += 1)
+            {
+                double hashSize = 1;
+                if (y % 5 == 0)
+                    hashSize = 2;
+                g.DrawLine(y != 0 ? p1 : p2,
+                           viewportToScreen(new flPoint(-hashSize, y)),
+                           viewportToScreen(new flPoint(hashSize, y)));
             }
         }
+
         public void Canvas_Paint(Object sender, PaintEventArgs e)
         {
             try
             {
                 _graphics = e.Graphics;
 
-                if (szScreen.Width <= 0 || szScreen.Height <= 0)
+                if (szScreen.X <= 0 || szScreen.Y <= 0)
                 {
                     Size sz = this.Size;
                     // force a square aspect ratio for now
@@ -266,7 +334,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
                     {
                         sz.Width = sz.Height;
                     }
-                    szScreen = sz;
+                    szScreen = new flPoint(sz);
                 }
 
                 DrawGrid(e.Graphics);
@@ -275,7 +343,6 @@ namespace dbarbee.GraphicsEngine._2DCanvas
                 {
                     o.Draw(this);
                 }
-
             }
             catch (Exception ex)
             {
@@ -285,6 +352,23 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             {
                 //               _graphics = null;
             }
+        }
+
+        private void Canvas_SizeChanged(object sender, EventArgs e)
+        {
+            Size sz = this.Size;
+            // force a square aspect ratio for now
+            if (sz.Height > sz.Width)
+            {
+                sz.Height = sz.Width;
+            }
+            else
+            {
+                sz.Width = sz.Height;
+            }
+            szScreen = new flPoint(sz);
+
+            Invalidate();
         }
     }
 }

@@ -48,22 +48,23 @@
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
     <Compile Include="Circle.cs" />
+    <Compile Include="ClassFactory.cs" />
     <Compile Include="flPoint.cs" />
-    <Compile Include="IDrawingObject.cs" />
-    <Compile Include="ICanvas.cs" />
     <Compile Include="Line.cs" />
-    <Compile Include="CenteredPolygon.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rectangle.cs" />
-    <Compile Include="RegularPolygon.cs" />
-    <Compile Include="Triangle.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\2DCanvas.Interfaces\2DCanvas.Interfaces.csproj">
+      <Project>{eb4c0a9d-c9eb-43c3-aefe-310514f56ba1}</Project>
+      <Name>2DCanvas.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

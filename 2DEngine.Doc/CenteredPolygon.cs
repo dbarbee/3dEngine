@@ -4,20 +4,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dbarbee.GraphicsEngine._2DCanvas.Data;
 
-namespace dbarbee.GraphicsEngine._2DCanvas
+namespace dbarbee.GraphicsEngine._2DEngine.Doc
 {
     public class CenteredPolygon : IDrawingObject
     {
-        protected flPoint Center;
+        protected Point Center;
         protected double Orientation;
         protected bool Fill;
-        public flPoint Size;
+        public Point Size;
 
+        protected Point[] Points;
 
-        protected flPoint[] Points;
-
-        public CenteredPolygon(flPoint[] points, bool fill = false)
+        public CenteredPolygon(Point[] points, bool fill = false)
         {
             Points = points;
             Fill = fill;
@@ -28,9 +28,9 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             Points = null;
         }
 
-        public virtual void Draw(ICanvas g)
+        public void Draw(ICanvas c)
         {
-            g.DrawPolygon(flPoint.Translate(flPoint.Rotate(Points, Orientation),Center));
+            c.DrawPolygon(PointEx.Translate(PointEx.Rotate(Points, Orientation),Center));
         }
     }
 }

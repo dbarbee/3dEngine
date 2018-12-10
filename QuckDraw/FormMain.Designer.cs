@@ -1,6 +1,6 @@
 ﻿using dbarbee.GraphicsEngine._2DCanvas;
 
-namespace dbarbee.GraphicsEngine.D2
+namespace dbarbee.GraphicsEngine.QuickDraw
 {
     partial class FormMain
     {
@@ -128,7 +128,6 @@ namespace dbarbee.GraphicsEngine.D2
             this.canvas1.Location = new System.Drawing.Point(0, 24);
             this.canvas1.Name = "canvas1";
             this.canvas1.Size = new System.Drawing.Size(603, 567);
-            this.canvas1.szViewport = new System.Drawing.Size(100, 100);
             this.canvas1.TabIndex = 1;
             // 
             // FormMain

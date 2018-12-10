@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
 namespace dbarbee.GraphicsEngine._2DCanvas
 {

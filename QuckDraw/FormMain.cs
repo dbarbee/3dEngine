@@ -8,27 +8,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 using dbarbee.GraphicsEngine._2DCanvas;
+using dbarbee.GraphicsEngine._2DEngine;
 
-namespace dbarbee.GraphicsEngine.D2
+namespace dbarbee.GraphicsEngine.QuickDraw
 {
     public partial class FormMain : Form
     {
         public FormMain()
         {
+            _2DEngine.Globals.Classfactory = new _2DCanvas.ClassFactory();
+
             InitializeComponent();
 
             int objIdx = 0;
-            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.Rectangle(new flPoint(0, 0), new flPoint(50, 50), true));
-            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.Circle(new flPoint(0, 0), 20, true));
-            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.Triangle(new flPoint(0, 0), new flPoint(40, 40), false));
-            for (int angle = 0; angle < 360; angle += 20)
+            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DEngine.Rectangle(new flPoint(0, 0), new flPoint(50, 50), true));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new Circle(new flPoint(0, 0), 20, true));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new IsoscelesTriangle(new flPoint(0, 0), new flPoint(40, 40), false));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new EquilateralTriangle(new flPoint(0, 0), 30, false));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new RightTriangle(new flPoint(0, 0), new flPoint(40, 20), false));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new RightTriangle(new flPoint(0, 0), new flPoint(40, 20), false,90));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new RightTriangle(new flPoint(0, 0), new flPoint(20, 40), false));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new RightTriangle(new flPoint(0, 0), new flPoint(20, 40), false,90));
+            for (int angle = 0; angle < 360; angle += 3)
             {
-                canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.RegularPolygon(new flPoint(0, 0), 6, 25, false, angle));
+                canvas1.ObjectList.Add((++objIdx).ToString(), new RegularPolygon(new flPoint(0, 0), 6, Math.Abs(Math.Sin(angle*Math.PI/180))*25, false, angle));
             }
             //for (int angle = 0; angle < 360; angle += 30)
             //{
-            //    canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.Triangle(new flPoint(50, 50), new flPoint(20, 20), false, angle));
+            //    canvas1.ObjectList.Add((++objIdx).ToString(), new Triangle(new flPoint(50, 50), new flPoint(20, 20), false, angle));
             //}
             //for (int angle = 0; angle < 360; angle += 2)
             //{

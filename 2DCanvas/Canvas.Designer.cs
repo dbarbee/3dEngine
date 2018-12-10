@@ -32,6 +32,7 @@
             // 
             // Canvas
             // 
+            this.SizeChanged += new System.EventHandler(this.Canvas_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
             this.ResumeLayout(false);
 

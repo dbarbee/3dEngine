@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dbarbee.GraphicsEngine._2DCanvas;
+using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
-namespace dbarbee.GraphicsEngine._2DCanvas
+namespace dbarbee.GraphicsEngine._2DEngine
 {
     public class RegularPolygon : CenteredPolygon
     {
         double Radius;
 
-        public RegularPolygon(flPoint center, int numSides, double radius, bool fill = false, double orientation = 0)
+        public RegularPolygon(IflPoint center, int numSides, double radius, bool fill = false, double orientation = 0)
         {
             Center = center;
             Radius = radius;
             Fill = fill;
             Orientation = orientation;
-            Points = new flPoint[numSides];
+            Points = new IflPoint[numSides];
 
             double deltaAngle = 2.0 * Math.PI / numSides;
             double minX = double.MaxValue;
@@ -28,7 +30,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
             {
                 double angle = idx * deltaAngle;
 
-                Points[idx] = new flPoint(radius * Math.Sin(angle), radius * Math.Cos(angle));
+                Points[idx] = Globals.Classfactory.NewflPoint(radius * Math.Sin(angle), radius * Math.Cos(angle));
 
                 if (Points[idx].X > maxX) maxX = Points[idx].X;
                 if (Points[idx].X < minX) minX = Points[idx].X;
@@ -36,7 +38,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas
                 if (Points[idx].Y < minY) minY = Points[idx].Y;
             }
 
-            Size = new flPoint((maxX - minX / 2), (maxY - minY / 2));
+            Size = Globals.Classfactory.NewflPoint((maxX - minX / 2), (maxY - minY / 2));
         }
     }
 }

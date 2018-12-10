@@ -18,6 +18,12 @@ namespace _3dEngine
             tuple[1] = dy;
             tuple[2] = dz;
         }
+        public Vector(Point p1, Point p2) : this()
+        {
+            tuple[0] = p2.x - p1.x;
+            tuple[1] = p2.y - p1.y;
+            tuple[2] = p2.z - p1.z;
+        }
 
         public double dx { get { return tuple[0]; } }
         public double dy { get { return tuple[1]; } }
@@ -40,6 +46,18 @@ namespace _3dEngine
         public Vector SubtractVectorFromVector(Vector v)
         {
             return this - v;
+        }
+
+        public static Vector operator *(Vector v1, Vector v2)
+        {
+            return new Vector(v1.dy * v2.dz - v1.dz * v2.dy,
+                              v1.dz * v2.dx - v1.dx * v2.dz,
+                              v1.dx * v2.dy - v1.dx * v2.dz);
+        }
+
+        public Vector CrossProductVectorToVector(Vector v)
+        {
+            return this * v;
         }
 
         public Vector RotateXY(double degrees)

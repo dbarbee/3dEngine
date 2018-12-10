@@ -4,29 +4,30 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
 namespace dbarbee.GraphicsEngine._2DCanvas
 {
-    public struct Line :IDrawingObject
+    public struct Line : ILine
     {
-        public flPoint P1;
-        public flPoint P2;
+        public IflPoint P1 { get; set; }
+        public IflPoint P2 { get; set; }
 
-        public Line(flPoint p1, flPoint p2) { P1 = p1; P2 = p2; }
+        public Line(IflPoint p1, IflPoint p2) { P1 = p1; P2 = p2; }
         public Line(Point p1, Point p2) { P1 = new flPoint(p1); P2 = new flPoint(p2); }
         //public flPoint(Point p) { X = p.X; Y = p.Y; }
 
-        public Line Translate(flPoint delta)
+        public ILine Translate(IflPoint delta)
         {
             return new Line(P1.Translate(delta), P2.Translate(delta));
         }
 
-        public Line Scale(flPoint scale)
+        public ILine Scale(IflPoint scale)
         {
             return new Line(P1.Scale(scale), P2.Scale(scale));
         }
 
-        public Line Scale(double sx, double sy)
+        public ILine Scale(double sx, double sy)
         {
             return new Line(P1.Scale(sx, sy), P2.Scale(sx, sy));
         }

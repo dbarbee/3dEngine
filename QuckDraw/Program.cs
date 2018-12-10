@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dbarbee.GraphicsEngine.D2
+namespace dbarbee.GraphicsEngine.QuickDraw
 {
     static class Program
     {

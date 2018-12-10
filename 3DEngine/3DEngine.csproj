@@ -7,7 +7,7 @@
     <ProjectGuid>{ADFED3ED-6C3C-4F21-AF4C-E534C7B9BCFB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_3DEngine</RootNamespace>
+    <RootNamespace>dbarbee.GraphicsEngine._3DEngine</RootNamespace>
     <AssemblyName>3DEngine</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,9 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="myDouble.cs" />
+    <Compile Include="I3DObject.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="Polyhedron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Surface.cs" />
     <Compile Include="Vector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\2DCanvas.Interfaces\2DCanvas.Interfaces.csproj">
+      <Project>{eb4c0a9d-c9eb-43c3-aefe-310514f56ba1}</Project>
+      <Name>2DCanvas.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2DCanvas\2DCanvas.csproj">
+      <Project>{7730e4f5-f3b9-4f96-bc2b-ab31196aecbe}</Project>
+      <Name>2DCanvas</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
