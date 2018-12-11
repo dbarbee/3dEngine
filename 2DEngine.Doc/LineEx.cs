@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using dbarbee.GraphicsEngine._2DCanvas.Data;
 
-namespace dbarbee.GraphicsEngine._2DEngine.Doc
+namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 {
     public static class LineEx
     {
         public static Line Translate(this Line l, Point delta)
         {
-            return new Line(l.P1.Translate(delta), l.P2.Translate(delta));
+            return new Line((Point)l.P1.Translate(delta), (Point)l.P2.Translate(delta));
         }
 
         public static Line Scale(this Line l, Point scale)

@@ -13,8 +13,8 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
 
         public Point(double x, double y) { X = x; Y = y; }
         public Point(int x, int y) { X = x; Y = y; }
-        public Point(System.Drawing.Point p) { X = p.X; Y = p.Y; }
-        public Point(System.Drawing.Size s) { X = s.Width; Y = s.Height; }
+        //public Point(System.Drawing.Point p) { X = p.X; Y = p.Y; }
+        //public Point(System.Drawing.Size s) { X = s.Width; Y = s.Height; }
 
         public void Draw(ICanvas c)
         {

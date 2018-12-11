@@ -173,7 +173,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
         }
 
 
-        public Point RotateXY(double degrees)
+        public I3DObject RotateXY(double degrees)
         {
             myDouble radians = Math.PI * degrees / 180.0;
 
@@ -187,7 +187,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
                 );
         }
 
-        public Point RotateXZ(double degrees)
+        public I3DObject RotateXZ(double degrees)
         {
             myDouble radians = Math.PI * degrees / 180.0;
 
@@ -201,7 +201,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
                 );
         }
 
-        public Point RotateYZ(double degrees)
+        public I3DObject RotateYZ(double degrees)
         {
             myDouble radians = Math.PI * degrees / 180.0;
 
@@ -215,17 +215,17 @@ namespace dbarbee.GraphicsEngine._3DEngine
                 );
         }
 
-        public Point Scale(Vector scale)
+        public I3DObject Scale(Vector scale)
         {
             return new Point(x * scale.dx, y * scale.dy, z * scale.dz);
         }
 
-        public Point Scale(double scale)
+        public I3DObject Scale(double scale)
         {
             return Scale(new Vector(scale,scale,scale));
         }
 
-        public Point Translate(Vector delta)
+        public I3DObject Translate(Vector delta)
         {
             return this + delta;
         }
@@ -288,17 +288,9 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return Math.Sqrt(x * x + y * y + z * z);
         }
 
-        public Tuple<double,double> Draw(double Sy)
+        public void Render(I3DCamera c)
         {
-            double Sx = (x * (Sy / y));
-            double Sz = (z * (Sy / y));
-
-            return new Tuple<double, double>(Sx,Sz);
-        }
-
-        public void Draw(ICanvas c)
-        {
-//            c.DrawPoint(this);
+            c.DrawPoint(this);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
-namespace dbarbee.GraphicsEngine._2DEngine
+namespace dbarbee.GraphicsEngine._2DCanvas
 {
     public class Globals
     {

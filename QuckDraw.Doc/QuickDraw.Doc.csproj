@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16F7D93B-A911-473A-97A7-51C90CCA6E67}</ProjectGuid>
+    <ProjectGuid>{556E4431-AB4C-4D19-9747-E7C27E47B03E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>dbarbee.GraphicsEngine.QuickDraw3D</RootNamespace>
-    <AssemblyName>QuickDraw3D</AssemblyName>
+    <RootNamespace>dbarbee.GraphicsEngine.QuickDraw.Doc</RootNamespace>
+    <AssemblyName>QuickDraw.Doc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QuickDraw3D.ico</ApplicationIcon>
+    <ApplicationIcon>QuickDraw.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QuickDraw.ico" />
-    <Content Include="QuickDraw3D.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\2DCanvas.Data\2DCanvas.Data.csproj">
@@ -95,13 +94,9 @@
       <Project>{618460ff-aee6-4e9f-ba21-68259ef9c2be}</Project>
       <Name>2DCanvas.Doc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\3DEngine\3DEngine.csproj">
-      <Project>{adfed3ed-6c3c-4f21-af4c-e534c7b9bcfb}</Project>
-      <Name>3DEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\3DViewPort\3DView.csproj">
-      <Project>{9ca25c55-064b-48b2-aea4-ba4439f92397}</Project>
-      <Name>3DView</Name>
+    <ProjectReference Include="..\2DEngine.Doc\2DEngine.Doc.csproj">
+      <Project>{93d0d53b-eadd-4396-8548-6fae4fb1253d}</Project>
+      <Name>2DEngine.Doc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

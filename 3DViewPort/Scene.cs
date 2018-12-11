@@ -10,8 +10,12 @@ namespace dbarbee.GraphicsEngine._3DView
     /// <summary>
     /// A collection of 3d objects that make up a scene
     /// </summary>
-    class Scene
+    public class Scene
     {
-        SortedList<double, I3DObject> DrawList;
+        public Scene()
+        {
+            DrawList = new List<I3DObject>();
+        }
+        public List<I3DObject> DrawList { get; set; }
     }
 }

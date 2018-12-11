@@ -46,9 +46,9 @@
     <Compile Include="Scene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\2DCanvas.Interfaces\2DCanvas.Interfaces.csproj">
-      <Project>{eb4c0a9d-c9eb-43c3-aefe-310514f56ba1}</Project>
-      <Name>2DCanvas.Interfaces</Name>
+    <ProjectReference Include="..\2DCanvas.Data\2DCanvas.Data.csproj">
+      <Project>{cf15ccb1-68f7-4776-a396-f8ca4fbed925}</Project>
+      <Name>2DCanvas.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\3DEngine\3DEngine.csproj">
       <Project>{adfed3ed-6c3c-4f21-af4c-e534c7b9bcfb}</Project>

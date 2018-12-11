@@ -2,25 +2,40 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
-using dbarbee.GraphicsEngine._2DCanvas;
-using dbarbee.GraphicsEngine._2DEngine;
+using dbarbee.GraphicsEngine._3DEngine;
+using dbarbee.GraphicsEngine._3DView;
 
 namespace dbarbee.GraphicsEngine.QuickDraw3D
 {
     public partial class FormMain : Form
     {
+        Scene scene;
+        Camera camera1;
+
         public FormMain()
         {
-            _2DEngine.Globals.Classfactory = new _2DCanvas.ClassFactory();
-
             InitializeComponent();
+
+            scene = new Scene();
+            camera1 = new Camera(canvas1, scene);
+
+            scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(0, -30, 0), new Point(0, 0, 60) }, true));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true));
+
+            scene.DrawList.Add(new Pyramid(new Point(35, 10, 0), 20, 20, 20));
+
+            camera1.FillSurfaces = true;
+            camera1.XRotation = 0;
+            camera1.ZRotation = 0;
+
+            camera1.Render();
 
             //int objIdx = 0;
             //canvas1.ObjectList.Add((++objIdx).ToString(), new _2DEngine.Rectangle(new flPoint(0, 0), new flPoint(50, 50), true));
@@ -62,6 +77,20 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
 
         private void redrawToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            canvas1.Invalidate();
+        }
+
+        private void CameraHorizontal_ValueChanged(object sender, EventArgs e)
+        {
+            camera1.XRotation = CameraHorizontal.Value;
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void CameraVertical_ValueChanged_1(object sender, EventArgs e)
+        {
+            camera1.ZRotation = CameraVertical.Value;
+            camera1.Render();
             canvas1.Invalidate();
         }
     }

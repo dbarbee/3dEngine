@@ -41,12 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="I3DCamera.cs" />
     <Compile Include="myDouble.cs" />
     <Compile Include="I3DObject.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Polyhedron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solid.cs" />
+    <Compile Include="Pyramid.cs" />
     <Compile Include="Surface.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>

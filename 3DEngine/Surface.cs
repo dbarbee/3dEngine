@@ -9,20 +9,6 @@ namespace dbarbee.GraphicsEngine._3DEngine
 {
     public class Surface : I3DObject
     {
-        // Vertices must be co-planer for a surface
-        public Point[] Vertices { get; private set; }
-
-        public Line[] Edges { get; private set; }
-
-        // which direction is out/up
-        public bool Orientation { get; private set; }
-
-        public Vector Normal { get; private set; }
-
-        public Point Max { get; private set; }
-        public Point Min { get; private set; }
-        public Point Center { get; private set; }
-
         public Surface(Point[] vertices, bool orientation = true)
         {
             Vertices = new Point[vertices.Length];
@@ -47,6 +33,19 @@ namespace dbarbee.GraphicsEngine._3DEngine
             Min = Point.Min(vertices);
             Center = Point.Center(vertices);
         }
+        // Vertices must be co-planer for a surface
+        public Point[] Vertices { get; private set; }
+
+        public Line[] Edges { get; private set; }
+
+        // which direction is out/up
+        public bool Orientation { get; private set; }
+
+        public Vector Normal { get; private set; }
+
+        public Point Max { get; private set; }
+        public Point Min { get; private set; }
+        public Point Center { get; private set; }
 
         // Mathematical description of the plane defined the surface 
         //  = Ax+By+Cz+D
@@ -118,9 +117,69 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return new Line(p, direction);
         }
 
-        public void Draw(ICanvas c)
+        public void Render(I3DCamera c)
         {
-            throw new NotImplementedException();
+            c.DrawSurface(this);
+        }
+
+        public I3DObject RotateXY(double degrees)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx =0;idx<Vertices.Length;idx++)
+            {
+                vertices[idx] = (Point) Vertices[idx].RotateXY(degrees);
+            }
+            return new Surface(vertices, this.Orientation);
+        }
+
+        public I3DObject RotateXZ(double degrees)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx = 0; idx < Vertices.Length; idx++)
+            {
+                vertices[idx] = (Point)Vertices[idx].RotateXZ(degrees);
+            }
+            return new Surface(vertices, this.Orientation);
+        }
+
+        public I3DObject RotateYZ(double degrees)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx = 0; idx < Vertices.Length; idx++)
+            {
+                vertices[idx] = (Point)Vertices[idx].RotateYZ(degrees);
+            }
+            return new Surface(vertices, this.Orientation);
+        }
+
+        public I3DObject Scale(Vector scale)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx = 0; idx < Vertices.Length; idx++)
+            {
+                vertices[idx] = (Point)Vertices[idx].Scale(scale);
+            }
+            return new Surface(vertices, this.Orientation);
+        }
+
+        public I3DObject Scale(double scale)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx = 0; idx < Vertices.Length; idx++)
+            {
+                vertices[idx] = (Point)Vertices[idx].Scale(scale);
+            }
+            return new Surface(vertices, this.Orientation);
+        }
+
+        public I3DObject Translate(Vector delta)
+        {
+            Point[] vertices = new Point[Vertices.Length];
+            for (int idx = 0; idx < Vertices.Length; idx++)
+            {
+                vertices[idx] = (Point)Vertices[idx].Translate(delta);
+            }
+            return new Surface(vertices, this.Orientation);
         }
     }
 }

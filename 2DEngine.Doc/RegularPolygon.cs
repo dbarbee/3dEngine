@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using dbarbee.GraphicsEngine._2DCanvas;
 using dbarbee.GraphicsEngine._2DCanvas.Data;
 
-namespace dbarbee.GraphicsEngine._2DEngine.Doc
+namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 {
     public class RegularPolygon : CenteredPolygon
     {

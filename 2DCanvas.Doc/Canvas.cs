@@ -24,7 +24,9 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             ptViewport = new Point(55, 55);
 
             CurrentPen = System.Drawing.Pens.Black;
-            CurrentBrush = System.Drawing.Brushes.LightGray;
+
+            System.Drawing.Color c = System.Drawing.Color.FromArgb(127, System.Drawing.Color.LightGray);
+            CurrentBrush = new System.Drawing.SolidBrush(c);// System.Drawing.Brushes.LightGray;
         }
 
         private System.Drawing.Graphics _graphics = null;
@@ -35,6 +37,21 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
         }
 
         public Dictionary<string, IDrawingObject> ObjectList = new Dictionary<string, IDrawingObject>();
+
+        public void ClearObjects()
+        {
+            ObjectList.Clear();
+        }
+
+        private int _nextId=0;
+        public void AddObject(IDrawingObject o)
+        {
+            ObjectList.Add(_nextId++.ToString("D10"), o);
+        }
+        public void AddObject(string key, IDrawingObject o)
+        {
+            ObjectList.Add(key, o);
+        }
 
         public Point szViewport { get; set; }
         public Point ptViewport { get; set; }
@@ -179,6 +196,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 
         public void DrawPolygon(Polygon polygon, bool fill = false)
         {
+            if (polygon.Fill) fill = true;
             System.Drawing.Graphics g = this;
             System.Drawing.Point[] screenPoints = viewportToScreen(polygon.Points);
             g.DrawPolygon(CurrentPen as System.Drawing.Pen, screenPoints);
@@ -317,7 +335,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
                     {
                         sz.Width = sz.Height;
                     }
-                    szScreen = new Point(sz);
+                    szScreen = new Point(sz.Width,sz.Height);
                 }
 
                 DrawGrid(e.Graphics);
@@ -349,7 +367,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             {
                 sz.Width = sz.Height;
             }
-            szScreen = new Point(sz);
+            szScreen = new Point(sz.Width, sz.Height);
 
             Invalidate();
         }

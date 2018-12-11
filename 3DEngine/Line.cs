@@ -286,10 +286,39 @@ namespace dbarbee.GraphicsEngine._3DEngine
             }
 #endif
         }
-
-       public void Draw(ICanvas c)
+        public void Render(I3DCamera c)
         {
-            throw new NotImplementedException();
+            c.DrawLine(this);
+        }
+
+        public I3DObject RotateXY(double degrees)
+        {
+            return new Line((Point)P1.RotateXY(degrees),(Point)P2.RotateXY(degrees));
+        }
+
+        public I3DObject RotateXZ(double degrees)
+        {
+            return new Line((Point)P1.RotateXZ(degrees), (Point)P2.RotateXZ(degrees));
+        }
+
+        public I3DObject RotateYZ(double degrees)
+        {
+            return new Line((Point)P1.RotateYZ(degrees), (Point)P2.RotateYZ(degrees));
+        }
+
+        public I3DObject Scale(Vector scale)
+        {
+            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale));
+        }
+
+        public I3DObject Scale(double scale)
+        {
+            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale));
+        }
+
+        public I3DObject Translate(Vector delta)
+        {
+            return new Line((Point)P1.Translate(delta), (Point)P2.Translate(delta));
         }
     }
 }

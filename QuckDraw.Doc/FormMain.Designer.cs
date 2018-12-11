@@ -1,6 +1,6 @@
 ﻿using dbarbee.GraphicsEngine._2DCanvas.Doc;
 
-namespace dbarbee.GraphicsEngine.QuickDraw3D
+namespace dbarbee.GraphicsEngine.QuickDraw.Doc
 {
     partial class FormMain
     {
@@ -40,8 +40,6 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.cameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.canvasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redrawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CameraHorizontal = new System.Windows.Forms.HScrollBar();
-            this.CameraVertical = new System.Windows.Forms.VScrollBar();
             this.canvas1 = new dbarbee.GraphicsEngine._2DCanvas.Doc.Canvas();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +52,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.redrawToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(589, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(603, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -124,50 +122,24 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.redrawToolStripMenuItem.Text = "Redraw!";
             this.redrawToolStripMenuItem.Click += new System.EventHandler(this.redrawToolStripMenuItem_Click);
             // 
-            // CameraHorizontal
-            // 
-            this.CameraHorizontal.LargeChange = 15;
-            this.CameraHorizontal.Location = new System.Drawing.Point(0, 596);
-            this.CameraHorizontal.Maximum = 180;
-            this.CameraHorizontal.Minimum = -180;
-            this.CameraHorizontal.Name = "CameraHorizontal";
-            this.CameraHorizontal.Size = new System.Drawing.Size(567, 17);
-            this.CameraHorizontal.TabIndex = 2;
-            this.CameraHorizontal.ValueChanged += new System.EventHandler(this.CameraHorizontal_ValueChanged);
-            // 
-            // CameraVertical
-            // 
-            this.CameraVertical.LargeChange = 15;
-            this.CameraVertical.Location = new System.Drawing.Point(570, 24);
-            this.CameraVertical.Maximum = 180;
-            this.CameraVertical.Minimum = -180;
-            this.CameraVertical.Name = "CameraVertical";
-            this.CameraVertical.Size = new System.Drawing.Size(17, 569);
-            this.CameraVertical.TabIndex = 3;
-            this.CameraVertical.ValueChanged += new System.EventHandler(this.CameraVertical_ValueChanged_1);
-            // 
             // canvas1
             // 
-            this.canvas1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvas1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.canvas1.Location = new System.Drawing.Point(0, 24);
             this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(567, 569);
+            this.canvas1.Size = new System.Drawing.Size(603, 567);
             this.canvas1.TabIndex = 1;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 615);
-            this.Controls.Add(this.CameraVertical);
-            this.Controls.Add(this.CameraHorizontal);
+            this.ClientSize = new System.Drawing.Size(603, 591);
             this.Controls.Add(this.canvas1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
-            this.Text = "Form1";
+            this.Text = "Quick Draw Doc";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -187,9 +159,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
         private System.Windows.Forms.ToolStripMenuItem cameraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem canvasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redrawToolStripMenuItem;
-        private Canvas canvas1;
-        private System.Windows.Forms.HScrollBar CameraHorizontal;
-        private System.Windows.Forms.VScrollBar CameraVertical;
+        private GraphicsEngine._2DCanvas.Doc.Canvas canvas1;
     }
 }
 

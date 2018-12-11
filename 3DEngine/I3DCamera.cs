@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace dbarbee.GraphicsEngine._3DEngine
 {
-    class Polyhedron
+    public interface I3DCamera
     {
-        public void Render(I3DCamera c)
-        {
-            //c.DrawPoint(this);
-        }
-
+        void DrawPoint(Point p);
+        void DrawLine(Line l);
+        void DrawSurface(Surface s);
     }
 }

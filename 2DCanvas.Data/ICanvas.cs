@@ -13,12 +13,18 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
         object CurrentPen { get; set; }
         object CurrentBrush { get; set; }
 
+        //Object List
+        void ClearObjects();
+        void AddObject(IDrawingObject o);
+        void AddObject(string key,IDrawingObject o);
+
         //Points
 
-        // Lines
         // Draw an individual point on the screen as a small filled circle 
         //  with diameter of 1 logical unit
         void DrawPoint(Point p);
+
+        // Lines
 
         // Draw an individual line 
         //void DrawLine(Point p1, Point p2);

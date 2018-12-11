@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using dbarbee.GraphicsEngine._2DCanvas;
 using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
-namespace dbarbee.GraphicsEngine._2DEngine
+namespace dbarbee.GraphicsEngine._2DCanvas
 {
 
     // Isosceles Triangle

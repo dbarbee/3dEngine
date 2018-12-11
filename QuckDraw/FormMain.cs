@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 using dbarbee.GraphicsEngine._2DCanvas;
-using dbarbee.GraphicsEngine._2DEngine;
+using dbarbee.GraphicsEngine._2DCanvas;
 
 namespace dbarbee.GraphicsEngine.QuickDraw
 {
@@ -18,12 +18,12 @@ namespace dbarbee.GraphicsEngine.QuickDraw
     {
         public FormMain()
         {
-            _2DEngine.Globals.Classfactory = new _2DCanvas.ClassFactory();
+            _2DCanvas.Globals.Classfactory = new _2DCanvas.ClassFactory();
 
             InitializeComponent();
 
             int objIdx = 0;
-            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DEngine.Rectangle(new flPoint(0, 0), new flPoint(50, 50), true));
+            canvas1.ObjectList.Add((++objIdx).ToString(), new _2DCanvas.Rectangle(new flPoint(0, 0), new flPoint(50, 50), true));
             canvas1.ObjectList.Add((++objIdx).ToString(), new Circle(new flPoint(0, 0), 20, true));
             canvas1.ObjectList.Add((++objIdx).ToString(), new IsoscelesTriangle(new flPoint(0, 0), new flPoint(40, 40), false));
             canvas1.ObjectList.Add((++objIdx).ToString(), new EquilateralTriangle(new flPoint(0, 0), 30, false));

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DCanvas.Doc", "2DCanvas.Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DEngine.Doc", "2DEngine.Doc\2DEngine.Doc.csproj", "{93D0D53B-EADD-4396-8548-6FAE4FB1253D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickDraw.Doc", "QuckDraw.Doc\QuickDraw.Doc.csproj", "{556E4431-AB4C-4D19-9747-E7C27E47B03E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{93D0D53B-EADD-4396-8548-6FAE4FB1253D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D0D53B-EADD-4396-8548-6FAE4FB1253D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D0D53B-EADD-4396-8548-6FAE4FB1253D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{556E4431-AB4C-4D19-9747-E7C27E47B03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{556E4431-AB4C-4D19-9747-E7C27E47B03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{556E4431-AB4C-4D19-9747-E7C27E47B03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{556E4431-AB4C-4D19-9747-E7C27E47B03E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
