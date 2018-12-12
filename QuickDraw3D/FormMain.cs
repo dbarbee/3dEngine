@@ -24,10 +24,15 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             scene = new Scene();
             camera1 = new Camera(canvas1, scene);
 
-            scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(0, -30, 0), new Point(0, 0, 60) }, true));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F0000));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F7F7F));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F007F00));
+            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F00007F));
+
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFFFF0000));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF7F7F7F));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF00FF00));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF0000FF));
 
             scene.DrawList.Add(new Pyramid(new Point(35, 10, 0), 20, 20, 20));
 
@@ -92,6 +97,12 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             camera1.ZRotation = CameraVertical.Value;
             camera1.Render();
             canvas1.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CameraHorizontal.Value = 0;
+            CameraVertical.Value = 0;
         }
     }
 }

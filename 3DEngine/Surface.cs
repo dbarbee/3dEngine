@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
+//using dbarbee.GraphicsEngine._2DCanvas.Data;
 
 namespace dbarbee.GraphicsEngine._3DEngine
 {
     public class Surface : I3DObject
     {
-        public Surface(Point[] vertices, bool orientation = true)
+        public Surface(Point[] vertices, bool orientation = true, UInt32 edgeColor = 0xFFFFFFFF, UInt32 verticeColor = 0x7FBEBEBE, UInt32 fillColor = 0x7F7F7F7F)
         {
             Vertices = new Point[vertices.Length];
             Edges = new Line[vertices.Length];
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            VerticeColor = verticeColor;
+            FillColor = fillColor;
 
             for (int idx = 0; idx < vertices.Length; idx++)
             {
@@ -41,6 +44,10 @@ namespace dbarbee.GraphicsEngine._3DEngine
         // which direction is out/up
         public bool Orientation { get; private set; }
 
+        public UInt32 EdgeColor = 0xFFFFFFFF; // opaque black
+        public UInt32 VerticeColor = 0x7FBEBEBE; // half transparent Darker Gray 
+        public UInt32 FillColor = 0x7F7F7F7F; // half transparent Medium Gray 
+
         public Vector Normal { get; private set; }
 
         public Point Max { get; private set; }
@@ -53,8 +60,6 @@ namespace dbarbee.GraphicsEngine._3DEngine
         public double B { get { return Normal.dy; } }
         public double C { get { return Normal.dz; } }
         public double D { get; private set; }
-
-        public double MaxY => throw new NotImplementedException();
 
         private void ComputeNormal()
         {
@@ -129,7 +134,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point) Vertices[idx].RotateXY(degrees);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
 
         public I3DObject RotateXZ(double degrees)
@@ -139,7 +144,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point)Vertices[idx].RotateXZ(degrees);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
 
         public I3DObject RotateYZ(double degrees)
@@ -149,7 +154,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point)Vertices[idx].RotateYZ(degrees);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
 
         public I3DObject Scale(Vector scale)
@@ -159,7 +164,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point)Vertices[idx].Scale(scale);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
 
         public I3DObject Scale(double scale)
@@ -169,7 +174,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point)Vertices[idx].Scale(scale);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
 
         public I3DObject Translate(Vector delta)
@@ -179,7 +184,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
             {
                 vertices[idx] = (Point)Vertices[idx].Translate(delta);
             }
-            return new Surface(vertices, this.Orientation);
+            return new Surface(vertices, this.Orientation, EdgeColor, VerticeColor, FillColor);
         }
     }
 }

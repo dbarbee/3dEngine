@@ -12,15 +12,17 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
     {
         protected Point Center;
         protected double Orientation;
-        protected bool Fill;
+        public Color EdgeColor { get; protected set; }
+        public Color FillColor { get; protected set; }
         public Point Size;
 
         protected Point[] Points;
 
-        public CenteredPolygon(Point[] points, bool fill = false)
+        public CenteredPolygon(Point[] points, Color edgeColor = null, Color fillColor = null)
         {
             Points = points;
-            Fill = fill;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
         }
 
         protected CenteredPolygon()
@@ -30,7 +32,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 
         public void Draw(ICanvas c)
         {
-            c.DrawPolygon(PointEx.Translate(PointEx.Rotate(Points, Orientation),Center));
+            c.DrawPolygon(PointEx.Translate(PointEx.Rotate(Points, Orientation),Center),EdgeColor,FillColor);
         }
     }
 }

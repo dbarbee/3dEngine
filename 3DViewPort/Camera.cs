@@ -108,7 +108,7 @@ namespace dbarbee.GraphicsEngine._3DView
             double Sx = (p.x * (_canvasOffset / (_offset + p.y)));
             double Sz = (p.z * (_canvasOffset / (_offset + p.y)));
 
-            return new _2DCanvas.Data.Point(Sx, Sz);
+            return new _2DCanvas.Data.Point(Sx, Sz, p.Color);
         }
 
         public void DrawPoint(Point p)
@@ -123,7 +123,7 @@ namespace dbarbee.GraphicsEngine._3DView
             _2DCanvas.Data.Point P1 = MapPointToCanvas(l.P1); ;
             _2DCanvas.Data.Point P2 = MapPointToCanvas(l.P2); ;
 
-            Canvas.AddObject(new _2DCanvas.Data.Line(P1, P2));
+            Canvas.AddObject(new _2DCanvas.Data.Line(P1, P2, l.Color));
         }
 
         public void DrawSurface(Surface s)
@@ -139,9 +139,9 @@ namespace dbarbee.GraphicsEngine._3DView
                     Canvas.AddObject(vertices[idx]);
                 }
             }
-            _2DCanvas.Data.Polygon polygon = new _2DCanvas.Data.Polygon(vertices, FillSurfaces);
             if (DrawEdges)
             {
+                _2DCanvas.Data.Polygon polygon = new _2DCanvas.Data.Polygon(vertices,s.EdgeColor,s.FillColor);
                 Canvas.AddObject(polygon);
             }
         }

@@ -54,13 +54,13 @@
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\2DCanvas.Interfaces\2DCanvas.Interfaces.csproj">
-      <Project>{eb4c0a9d-c9eb-43c3-aefe-310514f56ba1}</Project>
-      <Name>2DCanvas.Interfaces</Name>
+    <ProjectReference Include="..\2DCanvas.Data\2DCanvas.Data.csproj">
+      <Project>{cf15ccb1-68f7-4776-a396-f8ca4fbed925}</Project>
+      <Name>2DCanvas.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\2DCanvas\2DCanvas.csproj">
-      <Project>{7730e4f5-f3b9-4f96-bc2b-ab31196aecbe}</Project>
-      <Name>2DCanvas</Name>
+    <ProjectReference Include="..\2DCanvas.Doc\2DCanvas.Doc.csproj">
+      <Project>{618460ff-aee6-4e9f-ba21-68259ef9c2be}</Project>
+      <Name>2DCanvas.Doc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

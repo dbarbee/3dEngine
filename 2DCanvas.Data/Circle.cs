@@ -10,18 +10,20 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
     {
         Point Center;
         double Radius;
-        bool Fill;
+        public Color EdgeColor { get; protected set; }
+        public Color FillColor { get; protected set; }
 
-        public Circle(Point center, double radius, bool fill=false)
+        public Circle(Point center, double radius, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
             Radius = radius;
-            Fill = fill;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
         }
 
         public void Draw(ICanvas g)
         {
-            g.DrawCircle(Center, Radius, Fill);
+            g.DrawCircle(Center, Radius, EdgeColor, FillColor);
         }
     }
 }

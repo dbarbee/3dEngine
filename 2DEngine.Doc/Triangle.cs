@@ -12,11 +12,14 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
     // Isosceles Triangle
     public class Triangle : CenteredPolygon
     {
-        public Triangle(Point center, Point[] corners, bool fill = false, double orientation = 0)
+        protected Triangle() { }
+        public Triangle(Point center, Point[] corners, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
+
             Points = new Point[3];
 
             double minX = double.MaxValue;
@@ -37,14 +40,15 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
         }
     }
     // Isosceles Triangle
-    public class IsoscelesTriangle : CenteredPolygon
+    public class IsoscelesTriangle : Triangle
     {
-        public IsoscelesTriangle(Point center, Point size, bool fill = false, double orientation = 0)
+        public IsoscelesTriangle(Point center, Point size, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
             Size = size;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
             Points = new Point[3];
 
             Points[0] = new Point(-size.X / 2, -size.Y / 2);
@@ -54,15 +58,16 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
     }
 
     // Equilateral Triangle
-    public class EquilateralTriangle : CenteredPolygon
+    public class EquilateralTriangle : Triangle
     {
         public float Radius;
-        public EquilateralTriangle(Point center, float radius, bool fill = false, double orientation = 0)
+        public EquilateralTriangle(Point center, float radius, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Radius = radius;
             Center = center;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
             Points = new Point[3];
 
             double dx = Math.Sin(Math.PI / 3) * radius;
@@ -87,14 +92,15 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
         }
     }
     // Right Triangle
-    public class RightTriangle : CenteredPolygon
+    public class RightTriangle : Triangle
     {
-        public RightTriangle(Point center, Point size, bool fill = false, double orientation = 0)
+        public RightTriangle(Point center, Point size, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
             Size = size;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
             Points = new Point[3];
 
             Points[0] = new Point(-size.X / 2, -size.Y / 2);

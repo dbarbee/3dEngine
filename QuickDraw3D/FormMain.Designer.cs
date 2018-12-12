@@ -43,6 +43,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraHorizontal = new System.Windows.Forms.HScrollBar();
             this.CameraVertical = new System.Windows.Forms.VScrollBar();
             this.canvas1 = new dbarbee.GraphicsEngine._2DCanvas.Doc.Canvas();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,11 +157,22 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.canvas1.Size = new System.Drawing.Size(567, 569);
             this.canvas1.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(570, 597);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(19, 16);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "*";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(589, 615);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CameraVertical);
             this.Controls.Add(this.CameraHorizontal);
             this.Controls.Add(this.canvas1);
@@ -190,6 +202,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
         private Canvas canvas1;
         private System.Windows.Forms.HScrollBar CameraHorizontal;
         private System.Windows.Forms.VScrollBar CameraVertical;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -9,12 +9,28 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
     public class Polygon :IDrawingObject
     {
         public Point[] Points { get; protected set; }
-        public bool Fill { get; protected set; }
 
-        public Polygon(Point[] points, bool fill = false)
+        public Color EdgeColor { get; protected set; }
+        public Color FillColor { get; protected set; }
+        public Polygon(Point[] points, Color edgeColor = null, Color fillColor= null)
         {
             Points = points;
-            Fill = fill;
+            if (edgeColor == null)
+            {
+                EdgeColor = Color.Black;
+            }
+            else
+            {
+                EdgeColor = edgeColor;
+            }
+             if (fillColor == null)
+            {
+                FillColor = Color.TransMediumGray;
+            }
+            else
+            {
+                FillColor = fillColor;
+            }
         }
 
         protected Polygon()

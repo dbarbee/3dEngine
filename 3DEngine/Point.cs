@@ -1,5 +1,4 @@
 ﻿using System;
-using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
 
 namespace dbarbee.GraphicsEngine._3DEngine
 {
@@ -7,23 +6,29 @@ namespace dbarbee.GraphicsEngine._3DEngine
     {
         myDouble[] tuple;
 
+        public UInt32 Color = 0x7F7F7F7F; //Defaulat to half transparent half gray
+        
         public Point()
         {
             tuple = new myDouble[3];
         }
 
-        public Point(double x, double y, double z) : this()
+        public Point(double x, double y, double z, UInt32 color = 0x7F7F7F7F) : this()
         {
             tuple[0] = x;
             tuple[1] = y;
             tuple[2] = z;
+            Color = color;
         }
         public Point(Point p) : this()
         {
             tuple[0] = p.x;
             tuple[1] = p.y;
             tuple[2] = p.z;
+            Color = p.Color;
         }
+
+
 
         public double x { get { return tuple[0]; } set { tuple[0] = value; } }
         public double y { get { return tuple[1]; } set { tuple[1] = value; } }
@@ -112,7 +117,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
 
         public static Point operator +(Point p, Vector v)
         {
-            return new Point(p.x + v.dx, p.y + v.dy, p.z + v.dz);
+            return new Point(p.x + v.dx, p.y + v.dy, p.z + v.dz, p.Color);
         }
         public Point AddVectorToPoint(Vector v)
         {
@@ -120,7 +125,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
         }
         public static Point operator -(Point p, Vector v)
         {
-            return new Point(p.x - v.dx, p.y - v.dy, p.z - v.dz);
+            return new Point(p.x - v.dx, p.y - v.dy, p.z - v.dz, p.Color);
         }
         public Point SubtractVectorFromPoint(Vector v)
         {
@@ -144,7 +149,8 @@ namespace dbarbee.GraphicsEngine._3DEngine
         {
             return new Point(p1.y * p2.z - p1.z * p2.y,
                               p1.z * p2.x - p1.x * p2.z,
-                              p1.x * p2.y - p1.x * p2.z);
+                              p1.x * p2.y - p1.x * p2.z,
+                              p1.Color);
         }
 
         public Point Cross(Point p)
@@ -183,7 +189,8 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return new Point(
                 (cos * x) + (-sin * y),
                 (sin * x) + (cos * y),
-                z
+                z,
+                Color
                 );
         }
 
@@ -197,7 +204,8 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return new Point(
                 (cos * x) + (sin * z),
                 y,
-                (-sin * x) + (cos * z)
+                (-sin * x) + (cos * z),
+                Color
                 );
         }
 
@@ -211,13 +219,14 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return new Point(
                 x,
                 (cos * y) + (-sin * z),
-                (sin * y) + (cos * z)
+                (sin * y) + (cos * z),
+                Color
                 );
         }
 
         public I3DObject Scale(Vector scale)
         {
-            return new Point(x * scale.dx, y * scale.dy, z * scale.dz);
+            return new Point(x * scale.dx, y * scale.dy, z * scale.dz, Color);
         }
 
         public I3DObject Scale(double scale)

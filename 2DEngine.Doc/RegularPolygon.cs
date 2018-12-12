@@ -12,12 +12,13 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
     {
         double Radius;
 
-        public RegularPolygon(Point center, int numSides, double radius, bool fill = false, double orientation = 0)
+        public RegularPolygon(Point center, int numSides, double radius, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
             Radius = radius;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
             Points = new Point[numSides];
 
             double deltaAngle = 2.0 * Math.PI / numSides;

@@ -28,12 +28,12 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
 
         // Draw an individual line 
         //void DrawLine(Point p1, Point p2);
-        void DrawLine(Point p1, Point p2);
+        void DrawLine(Point p1, Point p2, Color c = null);
         void DrawLine(Line l);
 
         // Draw a series of connected line segments
         //void DrawPolyLine(Point[] points);
-        void DrawPolyLine(Point[] points);
+        void DrawPolyLine(Point[] points, Color c = null);
 
         // Draw a list of individually defined lines
         void DrawLines(Line[] lines);
@@ -43,11 +43,11 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
         //  back to the first) of lines defined by a list of points
         //void DrawPolygon(Point[] points, bool fill = false);
 
-        void DrawPolygon(Point[] points, bool fill = false);
+        void DrawPolygon(Point[] points, Color edgeColor = null, Color fillColor = null);
 
-        void DrawPolygon(Polygon polygon, bool fill = false);
+        void DrawPolygon(Polygon polygon);
 
         // Draw a circle
-        void DrawCircle(Point c, double r, bool fill = false);
+        void DrawCircle(Point c, double r, Color edgeColor = null, Color fillColor = null);
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using dbarbee.GraphicsEngine._2DCanvas.Interfaces;
+using dbarbee.GraphicsEngine._2DCanvas.Data;
 
 namespace dbarbee.GraphicsEngine._3DEngine
 {
@@ -13,6 +13,8 @@ namespace dbarbee.GraphicsEngine._3DEngine
     {
         public Point P1 { get; private set; }
         public Point P2 { get; private set; }
+
+        public UInt32 Color = 0xFFFFFFFF; //opaque black
 
         public Vector Direction { get; private set; }
 
@@ -22,10 +24,13 @@ namespace dbarbee.GraphicsEngine._3DEngine
 
         private Line() { }
 
-        public Line(Point p1, Point p2)
+        public Line(Point p1, Point p2, UInt32 color = 0xFFFFFFFF)
         {
             P1 = p1;
             P2 = p2;
+
+            Color = color;
+
             Direction = P2 - P1;
 
             Max = Point.Max(P1, P2);
@@ -33,10 +38,13 @@ namespace dbarbee.GraphicsEngine._3DEngine
             Center = Point.Center(P1, P2);
         }
 
-        public Line(Point p, Vector v)
+        public Line(Point p, Vector v, UInt32 color = 0xFFFFFFFF)
         {
             P1 = p;
             P2 = new Point(p.x + v.dx, p.y + v.dy, p.z + v.dz);
+
+            Color = color;
+
             Direction = v;
 
             Max = Point.Max(P1, P2);
@@ -60,7 +68,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
         /// </remarks>
         public Line Reverse()
         {
-            return new Line(P2, P1);
+            return new Line(P2, P1, Color);
         }
         public override bool Equals(object obj)
         {
@@ -293,32 +301,32 @@ namespace dbarbee.GraphicsEngine._3DEngine
 
         public I3DObject RotateXY(double degrees)
         {
-            return new Line((Point)P1.RotateXY(degrees),(Point)P2.RotateXY(degrees));
+            return new Line((Point)P1.RotateXY(degrees),(Point)P2.RotateXY(degrees), Color);
         }
 
         public I3DObject RotateXZ(double degrees)
         {
-            return new Line((Point)P1.RotateXZ(degrees), (Point)P2.RotateXZ(degrees));
+            return new Line((Point)P1.RotateXZ(degrees), (Point)P2.RotateXZ(degrees), Color);
         }
 
         public I3DObject RotateYZ(double degrees)
         {
-            return new Line((Point)P1.RotateYZ(degrees), (Point)P2.RotateYZ(degrees));
+            return new Line((Point)P1.RotateYZ(degrees), (Point)P2.RotateYZ(degrees), Color);
         }
 
         public I3DObject Scale(Vector scale)
         {
-            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale));
+            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale), Color);
         }
 
         public I3DObject Scale(double scale)
         {
-            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale));
+            return new Line((Point)P1.Scale(scale), (Point)P2.Scale(scale), Color);
         }
 
         public I3DObject Translate(Vector delta)
         {
-            return new Line((Point)P1.Translate(delta), (Point)P2.Translate(delta));
+            return new Line((Point)P1.Translate(delta), (Point)P2.Translate(delta), Color);
         }
     }
 }

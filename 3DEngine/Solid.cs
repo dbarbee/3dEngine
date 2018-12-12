@@ -9,12 +9,20 @@ namespace dbarbee.GraphicsEngine._3DEngine
     public class Solid : I3DObject
     {
 protected Solid() { }
-        public Solid (Surface[] surfaces)
+        public Solid (Surface[] surfaces, UInt32 edgeColor = 0xFFFFFFFF, UInt32 verticeColor = 0x7FBEBEBE, UInt32 fillColor = 0x7F7F7F7F)
         {
             Surfaces = surfaces;
+
+            EdgeColor = edgeColor;
+            VerticeColor = verticeColor;
+            FillColor = fillColor;
         }
 
         private Surface[] _surfaces;
+
+        public UInt32 EdgeColor = 0xFFFFFFFF; // opaque black
+        public UInt32 VerticeColor = 0x7FBEBEBE; // half transparent Darker Gray 
+        public UInt32 FillColor = 0x7F7F7F7F; // half transparent Medium Gray 
 
         public Surface[] Surfaces {
             get { return _surfaces; }

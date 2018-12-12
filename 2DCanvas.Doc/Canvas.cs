@@ -116,6 +116,10 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             //return value;
         }
 
+        private System.Drawing.Color ToSysColor(Color c)
+        {
+            return System.Drawing.Color.FromArgb(c.ARBG);
+        }
         // Draw an individual point on the screen as a small filled circle 
         //  with diameter of 1 logical unit
         public void DrawPoint(Point p)
@@ -127,7 +131,12 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
                 (int)Math.Round(scrCenter.X - scrRadii.X), (int)Math.Round(scrCenter.Y - scrRadii.Y),
                 (int)Math.Round(2 * scrRadii.X), (int)Math.Round(2 * scrRadii.Y));
             //g.DrawEllipse(CurrentPen as System.Drawing.Pen, boundingRec);
-            g.FillEllipse(CurrentBrush as System.Drawing.Brush, boundingRec);
+            System.Drawing.Brush b = CurrentBrush as System.Drawing.Brush;
+            if (p.Color!= null)
+            {
+                b = new System.Drawing.SolidBrush(ToSysColor(p.Color));
+            }
+            g.FillEllipse(b, boundingRec);
         }
 
         // Lines
@@ -136,14 +145,23 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             System.Drawing.Graphics g = this;
             g.DrawLine(CurrentPen as System.Drawing.Pen, viewportToScreen(p1), viewportToScreen(p2));
         }
-        public void DrawLine(Point p1, Point p2)
+        public void DrawLine(Point p1, Point p2, Color c = null)
         {
             System.Drawing.Graphics g = this;
-            g.DrawLine(CurrentPen as System.Drawing.Pen, viewportToScreen(p1), viewportToScreen(p2));
+            System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
+            if (c != null)
+            {
+                p = new System.Drawing.Pen(ToSysColor(c));
+            }
+            else if (p1.Color != null)
+            {
+                p = new System.Drawing.Pen(ToSysColor(p1.Color));
+            }
+            g.DrawLine(p, viewportToScreen(p1), viewportToScreen(p2));
         }
         public void DrawLine(Line l)
         {
-            DrawLine(l.P1, l.P2);
+            DrawLine(l.P1, l.P2, l.Color);
         }
         public void DrawPolyLine(System.Drawing.Point[] points)
         {
@@ -154,12 +172,12 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             }
         }
 
-        public void DrawPolyLine(Point[] points)
+        public void DrawPolyLine(Point[] points, Color c = null)
         {
             System.Drawing.Graphics g = this;
             for (int idx = 0; idx < points.Length - 1; idx++)
             {
-                DrawLine(points[idx], points[idx + 1]);
+                DrawLine(points[idx], points[idx + 1],c);
             }
         }
 
@@ -183,30 +201,41 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             }
         }
 
-        public void DrawPolygon(Point[] points, bool fill = false)
+        public void DrawPolygon(Point[] points, Color edgeColor = null, Color fillColor = null)
         {
             System.Drawing.Graphics g = this;
             System.Drawing.Point[] screenPoints = viewportToScreen(points);
-            g.DrawPolygon(CurrentPen as System.Drawing.Pen, screenPoints);
-            if (fill)
+            System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
+            if (edgeColor != null)
             {
-                g.FillPolygon(CurrentBrush as System.Drawing.Brush, screenPoints);
+                p = new System.Drawing.Pen(ToSysColor(edgeColor));
+            }
+            g.DrawPolygon(p, screenPoints);
+            if (fillColor != null)
+            {
+                System.Drawing.Brush b = new System.Drawing.SolidBrush(ToSysColor(fillColor));
+                g.FillPolygon(b, screenPoints);
             }
         }
 
-        public void DrawPolygon(Polygon polygon, bool fill = false)
+        public void DrawPolygon(Polygon polygon)
         {
-            if (polygon.Fill) fill = true;
             System.Drawing.Graphics g = this;
             System.Drawing.Point[] screenPoints = viewportToScreen(polygon.Points);
-            g.DrawPolygon(CurrentPen as System.Drawing.Pen, screenPoints);
-            if (fill)
+            System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
+            if (polygon.EdgeColor != null)
             {
-                g.FillPolygon(CurrentBrush as System.Drawing.Brush, screenPoints);
+                p = new System.Drawing.Pen(ToSysColor(polygon.EdgeColor));
+            }
+            g.DrawPolygon(CurrentPen as System.Drawing.Pen, screenPoints);
+            if (polygon.FillColor != null)
+            {
+                System.Drawing.Brush b = new System.Drawing.SolidBrush(ToSysColor(polygon.FillColor));
+                g.FillPolygon(b, screenPoints);
             }
         }
 
-        public void DrawCircle(Point c, double r, bool fill = false)
+        public void DrawCircle(Point c, double r, Color edgeColor = null, Color fillColor = null)
         {
             System.Drawing.Graphics g = this;
             System.Drawing.Point scrCenter = viewportToScreen(c);
@@ -214,10 +243,16 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             System.Drawing.Rectangle boundingRec = new System.Drawing.Rectangle(
                 (int)Math.Round(scrCenter.X - scrRadii.X), (int)Math.Round(scrCenter.Y - scrRadii.Y),
                 (int)Math.Round(2 * scrRadii.X), (int)Math.Round(2 * scrRadii.Y));
-            g.DrawEllipse(CurrentPen as System.Drawing.Pen, boundingRec);
-            if (fill)
+            System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
+            if (edgeColor != null)
             {
-                g.FillEllipse(CurrentBrush as System.Drawing.Brush, boundingRec);
+                p = new System.Drawing.Pen(ToSysColor(edgeColor));
+            }
+            g.DrawEllipse(p, boundingRec);
+            if (fillColor != null)
+            {
+                System.Drawing.Brush b = new System.Drawing.SolidBrush(ToSysColor(fillColor));
+                g.FillEllipse(b, boundingRec);
             }
 
             // Point[] circle = new Point[circularTessellation];

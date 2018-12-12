@@ -10,12 +10,14 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 {
     public class Rectangle : CenteredPolygon
     {
-        public Rectangle(Point center, Point size, bool fill = false, double orientation = 0)
+        public Rectangle(Point center, Point size, double orientation = 0, Color edgeColor = null, Color fillColor = null)
         {
             Center = center;
             Size = size;
-            Fill = fill;
             Orientation = orientation;
+            EdgeColor = edgeColor;
+            FillColor = fillColor;
+
             Points = new Point[4];
 
             Points[0] = new Point(-size.X / 2, -size.Y / 2);
