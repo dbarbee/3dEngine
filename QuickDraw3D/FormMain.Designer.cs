@@ -30,6 +30,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +45,9 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraVertical = new System.Windows.Forms.VScrollBar();
             this.canvas1 = new dbarbee.GraphicsEngine._2DCanvas.Doc.Canvas();
             this.button1 = new System.Windows.Forms.Button();
+            this.CameraDistanceSb = new System.Windows.Forms.HScrollBar();
+            this.ViewScreenDistanceSb = new System.Windows.Forms.HScrollBar();
+            this.CameraHorizontalToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,6 +136,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraHorizontal.Maximum = 180;
             this.CameraHorizontal.Minimum = -180;
             this.CameraHorizontal.Name = "CameraHorizontal";
+            this.CameraHorizontal.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CameraHorizontal.Size = new System.Drawing.Size(567, 17);
             this.CameraHorizontal.TabIndex = 2;
             this.CameraHorizontal.ValueChanged += new System.EventHandler(this.CameraHorizontal_ValueChanged);
@@ -139,7 +144,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             // CameraVertical
             // 
             this.CameraVertical.LargeChange = 15;
-            this.CameraVertical.Location = new System.Drawing.Point(570, 24);
+            this.CameraVertical.Location = new System.Drawing.Point(567, 24);
             this.CameraVertical.Maximum = 180;
             this.CameraVertical.Minimum = -180;
             this.CameraVertical.Name = "CameraVertical";
@@ -154,7 +159,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             | System.Windows.Forms.AnchorStyles.Right)));
             this.canvas1.Location = new System.Drawing.Point(0, 24);
             this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(567, 569);
+            this.canvas1.Size = new System.Drawing.Size(567, 567);
             this.canvas1.TabIndex = 1;
             // 
             // button1
@@ -167,11 +172,37 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // CameraDistanceSb
+            // 
+            this.CameraDistanceSb.Location = new System.Drawing.Point(0, 627);
+            this.CameraDistanceSb.Maximum = 280;
+            this.CameraDistanceSb.Name = "CameraDistanceSb";
+            this.CameraDistanceSb.Size = new System.Drawing.Size(567, 17);
+            this.CameraDistanceSb.TabIndex = 5;
+            this.CameraDistanceSb.Value = 140;
+            this.CameraDistanceSb.ValueChanged += new System.EventHandler(this.CameraDistanceSb_ValueChanged);
+            // 
+            // ViewScreenDistanceSb
+            // 
+            this.ViewScreenDistanceSb.Location = new System.Drawing.Point(0, 654);
+            this.ViewScreenDistanceSb.Maximum = 340;
+            this.ViewScreenDistanceSb.Name = "ViewScreenDistanceSb";
+            this.ViewScreenDistanceSb.Size = new System.Drawing.Size(567, 17);
+            this.ViewScreenDistanceSb.TabIndex = 5;
+            this.ViewScreenDistanceSb.Value = 170;
+            this.ViewScreenDistanceSb.ValueChanged += new System.EventHandler(this.ViewScreenDistanceSb_ValueChanged);
+            // 
+            // CameraHorizontalToolTip
+            // 
+            this.CameraHorizontalToolTip.ToolTipTitle = "Camera Horizontal";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 615);
+            this.ClientSize = new System.Drawing.Size(589, 680);
+            this.Controls.Add(this.ViewScreenDistanceSb);
+            this.Controls.Add(this.CameraDistanceSb);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.CameraVertical);
             this.Controls.Add(this.CameraHorizontal);
@@ -203,6 +234,9 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
         private System.Windows.Forms.HScrollBar CameraHorizontal;
         private System.Windows.Forms.VScrollBar CameraVertical;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.HScrollBar CameraDistanceSb;
+        private System.Windows.Forms.HScrollBar ViewScreenDistanceSb;
+        private System.Windows.Forms.ToolTip CameraHorizontalToolTip;
     }
 }
 

@@ -85,24 +85,59 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             canvas1.Invalidate();
         }
 
+        private bool UpdateOff = false;
+
         private void CameraHorizontal_ValueChanged(object sender, EventArgs e)
         {
             camera1.XRotation = CameraHorizontal.Value;
-            camera1.Render();
-            canvas1.Invalidate();
+            if (!UpdateOff)
+            {
+                camera1.Render();
+                canvas1.Invalidate();
+            }
         }
 
         private void CameraVertical_ValueChanged_1(object sender, EventArgs e)
         {
             camera1.ZRotation = CameraVertical.Value;
-            camera1.Render();
-            canvas1.Invalidate();
+            if (!UpdateOff)
+            {
+                camera1.Render();
+                canvas1.Invalidate();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CameraHorizontal.Value = 0;
-            CameraVertical.Value = 0;
+            try
+            {
+                UpdateOff = true;
+                CameraHorizontal.Value = 0;
+                CameraVertical.Value = 0;
+            }
+            finally
+            {
+                UpdateOff = false;
+                camera1.Render();
+                canvas1.Invalidate();
+            }
+        }
+
+        private void CameraDistanceSb_ValueChanged(object sender, EventArgs e)
+        {
+            camera1.Offset = camera1.CanvasOffset + Math.Pow(10, CameraDistanceSb.Value / 100.0);
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void ViewScreenDistanceSb_ValueChanged(object sender, EventArgs e)
+        {
+            double canvasOffset = Math.Pow(10, ViewScreenDistanceSb.Value / 100.0);
+            double cameraOffset = Math.Pow(10, CameraDistanceSb.Value / 100.0);
+            camera1.Offset = canvasOffset + cameraOffset;
+            camera1.CanvasOffset = canvasOffset;
+            camera1.Render();
+            canvas1.Invalidate();
         }
     }
 }

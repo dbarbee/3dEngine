@@ -29,7 +29,7 @@ namespace dbarbee.GraphicsEngine._3DView
         private Camera()
         {
             _canvasOffset = 50;
-            _offset = 75;
+            _offset = 25;
             DrawVertices = true;
             DrawEdges = true;
             FillSurfaces = true;
@@ -53,9 +53,9 @@ namespace dbarbee.GraphicsEngine._3DView
 
             set
             {
-                if (value >= Offset)
+                if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", "Canvas offset must be < camera offset");
+                    throw new ArgumentOutOfRangeException("value", "Canvas offset must be a positive number");
                 }
                 _canvasOffset = value;
             }
@@ -67,7 +67,7 @@ namespace dbarbee.GraphicsEngine._3DView
 
         private double _offset;
         /// <summary>
-        /// How far is the camera from the origin
+        /// How far out the camera from the canvas
         /// 
         /// Note the canvas must be closer to the origin then the camera
         /// </summary>
@@ -77,9 +77,9 @@ namespace dbarbee.GraphicsEngine._3DView
 
             set
             {
-                if (value <= _canvasOffset)
+                if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", "Canvas offset must be < camera offset");
+                    throw new ArgumentOutOfRangeException("value", "Camera offset must be a positive number");
                 }
                 _offset = value;
             }
@@ -105,8 +105,9 @@ namespace dbarbee.GraphicsEngine._3DView
         /// <returns>The point on the 'screen' that maps to the point in 3D</returns>
         public _2DCanvas.Data.Point MapPointToCanvas(Point p)
         {
-            double Sx = (p.x * (_canvasOffset / (_offset + p.y)));
-            double Sz = (p.z * (_canvasOffset / (_offset + p.y)));
+            double scalefactor = _canvasOffset / (_canvasOffset + _offset + p.y);
+            double Sx = p.x * scalefactor;
+            double Sz = p.z * scalefactor;
 
             return new _2DCanvas.Data.Point(Sx, Sz, p.Color);
         }
