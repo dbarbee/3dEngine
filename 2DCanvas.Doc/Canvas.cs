@@ -116,9 +116,13 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             //return value;
         }
 
-        private System.Drawing.Color ToSysColor(Color c)
+        private System.Drawing.Color ToSysColor(UInt32 c)
         {
-            return System.Drawing.Color.FromArgb(c.ARBG);
+            return System.Drawing.Color.FromArgb((Int32)c);
+        }
+        private System.Drawing.Color ToSysColor(UInt32? c)
+        {
+            return System.Drawing.Color.FromArgb((Int32)c.Value);
         }
         // Draw an individual point on the screen as a small filled circle 
         //  with diameter of 1 logical unit
@@ -145,7 +149,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             System.Drawing.Graphics g = this;
             g.DrawLine(CurrentPen as System.Drawing.Pen, viewportToScreen(p1), viewportToScreen(p2));
         }
-        public void DrawLine(Point p1, Point p2, Color c = null)
+        public void DrawLine(Point p1, Point p2, UInt32? c = null)
         {
             System.Drawing.Graphics g = this;
             System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
@@ -172,7 +176,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             }
         }
 
-        public void DrawPolyLine(Point[] points, Color c = null)
+        public void DrawPolyLine(Point[] points, UInt32? c = null)
         {
             System.Drawing.Graphics g = this;
             for (int idx = 0; idx < points.Length - 1; idx++)
@@ -201,7 +205,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             }
         }
 
-        public void DrawPolygon(Point[] points, Color edgeColor = null, Color fillColor = null)
+        public void DrawPolygon(Point[] points, UInt32? edgeColor = null, UInt32? fillColor = null)
         {
             System.Drawing.Graphics g = this;
             System.Drawing.Point[] screenPoints = viewportToScreen(points);
@@ -220,22 +224,10 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 
         public void DrawPolygon(Polygon polygon)
         {
-            System.Drawing.Graphics g = this;
-            System.Drawing.Point[] screenPoints = viewportToScreen(polygon.Points);
-            System.Drawing.Pen p = CurrentPen as System.Drawing.Pen;
-            if (polygon.EdgeColor != null)
-            {
-                p = new System.Drawing.Pen(ToSysColor(polygon.EdgeColor));
-            }
-            g.DrawPolygon(CurrentPen as System.Drawing.Pen, screenPoints);
-            if (polygon.FillColor != null)
-            {
-                System.Drawing.Brush b = new System.Drawing.SolidBrush(ToSysColor(polygon.FillColor));
-                g.FillPolygon(b, screenPoints);
-            }
+            DrawPolygon(polygon.Points, polygon.EdgeColor, polygon.FillColor);
         }
 
-        public void DrawCircle(Point c, double r, Color edgeColor = null, Color fillColor = null)
+        public void DrawCircle(Point c, double r, UInt32? edgeColor = null, UInt32? fillColor = null)
         {
             System.Drawing.Graphics g = this;
             System.Drawing.Point scrCenter = viewportToScreen(c);
@@ -296,9 +288,14 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
             // }
             // DrawPolygon(g, circle);
         }
-
+        public void DrawCircle(Circle c)
+        {
+            DrawCircle(c.Center, c.Radius, c.EdgeColor, c.FillColor);
+        }
         public object CurrentPen { get; set; }
         public object CurrentBrush { get; set; }
+
+        public bool IncludeGrid { get; set; }
 
         private void DrawGrid(System.Drawing.Graphics g)
         {
@@ -373,7 +370,10 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Doc
                     szScreen = new Point(sz.Width,sz.Height);
                 }
 
-                DrawGrid(e.Graphics);
+                if (IncludeGrid)
+                {
+                    DrawGrid(e.Graphics);
+                }
 
                 foreach (IDrawingObject o in ObjectList.Values)
                 {

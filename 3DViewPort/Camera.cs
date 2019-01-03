@@ -92,7 +92,12 @@ namespace dbarbee.GraphicsEngine._3DView
         public double YRotation { get; set; }
         public double ZRotation { get; set; }
 
-
+        bool _usePerspective = true;
+        public bool UsePerspective
+        {
+            get { return _usePerspective; }
+            set { _usePerspective = value; }
+        }
         /// <summary>
         /// Map a 3D point to the canvas using perspective
         /// </summary>
@@ -105,7 +110,7 @@ namespace dbarbee.GraphicsEngine._3DView
         /// <returns>The point on the 'screen' that maps to the point in 3D</returns>
         public _2DCanvas.Data.Point MapPointToCanvas(Point p)
         {
-            double scalefactor = _canvasOffset / (_canvasOffset + _offset + p.y);
+            double scalefactor = _usePerspective ? _canvasOffset / (_canvasOffset + _offset + p.y) : 1.0;
             double Sx = p.x * scalefactor;
             double Sz = p.z * scalefactor;
 
@@ -140,16 +145,30 @@ namespace dbarbee.GraphicsEngine._3DView
                     Canvas.AddObject(vertices[idx]);
                 }
             }
-            if (DrawEdges)
+            if (DrawEdges || FillSurfaces)
             {
-                _2DCanvas.Data.Polygon polygon = new _2DCanvas.Data.Polygon(vertices,s.EdgeColor,s.FillColor);
+                UInt32? edgeColor = DrawEdges ? (UInt32?)s.EdgeColor : null;
+                UInt32? fillColor = FillSurfaces ? (UInt32?)s.FillColor : null;
+                _2DCanvas.Data.Polygon polygon = new _2DCanvas.Data.Polygon(vertices, edgeColor, fillColor);
                 Canvas.AddObject(polygon);
             }
+        }
+
+
+        private void DrawGrid()
+        {
+            Line lx = new Line(new Point(-100, 0, 0), new Point(100, 0, 0), 0x7FFF0000);//0x7F7F7F7F);
+            Line ly = new Line(new Point(0, -100, 0), new Point(0, 100, 0), 0x7F00FF00);//0x7F7F7F7F);
+            Line lz = new Line(new Point(0, 0, -100), new Point(0, 0, 100), 0x7F0000FF);//0x7F7F7F7F);
+
+            Scene.DrawList.AddRange(new Line[] { lx, ly, lz });
         }
 
         public void Render()
         {
             Canvas.ClearObjects();
+
+            DrawGrid();
 
             foreach (I3DObject o in Scene.DrawList)
             {

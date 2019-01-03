@@ -8,12 +8,12 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
 {
     public class Circle : IDrawingObject
     {
-        Point Center;
-        double Radius;
-        public Color EdgeColor { get; protected set; }
-        public Color FillColor { get; protected set; }
+        public Point Center { get; protected set; }
+        public double Radius { get; protected set; }
+        public UInt32? EdgeColor { get; protected set; }
+        public UInt32? FillColor { get; protected set; }
 
-        public Circle(Point center, double radius, Color edgeColor = null, Color fillColor = null)
+        public Circle(Point center, double radius, UInt32? edgeColor = 0XFFFFFFFF, UInt32? fillColor = 0XFF7F7F7F)
         {
             Center = center;
             Radius = radius;
@@ -23,7 +23,7 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
 
         public void Draw(ICanvas g)
         {
-            g.DrawCircle(Center, Radius, EdgeColor, FillColor);
+            g.DrawCircle(this);
         }
     }
 }

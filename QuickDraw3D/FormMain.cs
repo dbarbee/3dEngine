@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define VISUALIZE_INTERSECT
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,18 +26,45 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             scene = new Scene();
             camera1 = new Camera(canvas1, scene);
 
-            scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F0000));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F7F7F));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F007F00));
-            scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F00007F));
+#if !VISUALIZE_INTERSECT
+
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F0000));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F7F7F7F));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F007F00));
+            //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0x3F00007F));
 
             //scene.DrawList.Add(new Surface(new Point[] { new Point(30, 30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFFFF0000));
             //scene.DrawList.Add(new Surface(new Point[] { new Point(-0, -30, 0), new Point(30, 30, 0), new Point(-30, 30, 0) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF7F7F7F));
             //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(-30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF00FF00));
             //scene.DrawList.Add(new Surface(new Point[] { new Point(0, -30, 0), new Point(30, 30, 0), new Point(0, 0, 60) }, true, 0xFFFFFFFF, 0x3FBEBEBE, 0xFF0000FF));
 
-            scene.DrawList.Add(new Pyramid(new Point(35, 10, 0), 20, 20, 20));
+            //scene.DrawList.Add(new Pyramid(new Point(35, 10, 0), 20, 20, 20));
 
+#else
+            // Line Intersection Visualization
+            Line l1 = new Line(new Point(-10, -10, 0), new Point(20, 20, 0), 0xFFFF0000);
+            Line l2 = new Line(new Point(30, -30, 0), new Point(-15, 15, 0), 0xFF00FF00);
+            scene.DrawList.Add(l1);
+            scene.DrawList.Add(l2);
+
+            Point Pi = l1.Intersect(l2);
+            Pi.Color = 0xFF0000FF;
+            scene.DrawList.Add(Pi);
+
+            Vector crossVectors = l1.Direction.Cross(l2.Direction);
+            Line crossVectorsLine = new Line(l1.P1, crossVectors, 0xFF0000FF);
+            scene.DrawList.Add(crossVectorsLine);
+
+            Line l3 = new Line(l1.P1, l2.P1, 0xFFFF0000);
+            Line l4 = new Line(l2.P1, l1.P1, 0xFFFF0000);
+            scene.DrawList.Add(l3);
+
+            Vector crossT = (l1.P1 - l2.P1).Cross(l2.Direction);
+            Vector crossU = (l2.P1 - l1.P1).Cross(l1.Direction);
+
+            Line l5 = new Line(l2.P1, crossT, 0xFFFF0000);
+            scene.DrawList.Add(l5);
+#endif
             camera1.FillSurfaces = true;
             camera1.XRotation = 0;
             camera1.ZRotation = 0;
@@ -95,6 +124,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
                 camera1.Render();
                 canvas1.Invalidate();
             }
+            SetRotationText();
         }
 
         private void CameraVertical_ValueChanged_1(object sender, EventArgs e)
@@ -105,6 +135,11 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
                 camera1.Render();
                 canvas1.Invalidate();
             }
+            SetRotationText();
+        }
+        private void SetRotationText()
+        {
+            tsRotation.Text = string.Format("Tilt:{0}, Pand {1}", CameraVertical.Value, CameraHorizontal.Value);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -136,6 +171,34 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             double cameraOffset = Math.Pow(10, CameraDistanceSb.Value / 100.0);
             camera1.Offset = canvasOffset + cameraOffset;
             camera1.CanvasOffset = canvasOffset;
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void usePerspectiveToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            camera1.UsePerspective = usePerspectiveToolStripMenuItem.Checked;
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void fillSurfacesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            camera1.FillSurfaces = fileToolStripMenuItem.Checked;
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void drawEdgesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            camera1.DrawEdges = drawEdgesToolStripMenuItem.Checked;
+            camera1.Render();
+            canvas1.Invalidate();
+        }
+
+        private void drawVerticesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            camera1.DrawVertices = drawVerticesToolStripMenuItem.Checked;
             camera1.Render();
             canvas1.Invalidate();
         }

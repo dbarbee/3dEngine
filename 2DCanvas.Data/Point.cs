@@ -10,10 +10,10 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public Color Color { get; set; }
+        public UInt32? Color { get; set; }
 
-        public Point(double x, double y, Color c = null) { X = x; Y = y; Color = c; }
-        public Point(int x, int y, Color c = null) { X = x; Y = y; Color = c; }
+        public Point(double x, double y, UInt32? c = 0xFFFFFFFF) { X = x; Y = y; Color = c; }
+        public Point(int x, int y, UInt32? c = null) { X = x; Y = y; Color = c; }
         //public Point(System.Drawing.Point p) { X = p.X; Y = p.Y; }
         //public Point(System.Drawing.Size s) { X = s.Width; Y = s.Height; }
 

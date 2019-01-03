@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dbarbee.GraphicsEngine._2DCanvas.Data
+namespace dbarbee.GraphicsEngine._2DCanvas.Doc
 {
 
     public class Color
     {
-
         public Color(Byte a, Byte r, Byte g, Byte b)
         {
             A = a;

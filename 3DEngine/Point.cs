@@ -181,13 +181,13 @@ namespace dbarbee.GraphicsEngine._3DEngine
 
         public I3DObject RotateXY(double degrees)
         {
-            myDouble radians = Math.PI * degrees / 180.0;
+            myDouble radians = (Math.PI * degrees) / 180.0;
 
             myDouble sin = Math.Sin(radians);
             myDouble cos = Math.Cos(radians);
 
             return new Point(
-                (cos * x) + (-sin * y),
+                (cos * x) + (-1*sin * y),
                 (sin * x) + (cos * y),
                 z,
                 Color
@@ -196,7 +196,7 @@ namespace dbarbee.GraphicsEngine._3DEngine
 
         public I3DObject RotateXZ(double degrees)
         {
-            myDouble radians = Math.PI * degrees / 180.0;
+            myDouble radians = (Math.PI * degrees) / 180.0;
 
             myDouble sin = Math.Sin(radians);
             myDouble cos = Math.Cos(radians);
@@ -204,21 +204,21 @@ namespace dbarbee.GraphicsEngine._3DEngine
             return new Point(
                 (cos * x) + (sin * z),
                 y,
-                (-sin * x) + (cos * z),
+                (-1 * sin * x) + (cos * z),
                 Color
                 );
         }
 
         public I3DObject RotateYZ(double degrees)
         {
-            myDouble radians = Math.PI * degrees / 180.0;
+            myDouble radians = (Math.PI * degrees) / 180.0;
 
             myDouble sin = Math.Sin(radians);
             myDouble cos = Math.Cos(radians);
 
             return new Point(
                 x,
-                (cos * y) + (-sin * z),
+                (cos * y) + (-1*sin * z),
                 (sin * y) + (cos * z),
                 Color
                 );

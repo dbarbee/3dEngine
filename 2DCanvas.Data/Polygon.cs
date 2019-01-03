@@ -10,27 +10,14 @@ namespace dbarbee.GraphicsEngine._2DCanvas.Data
     {
         public Point[] Points { get; protected set; }
 
-        public Color EdgeColor { get; protected set; }
-        public Color FillColor { get; protected set; }
-        public Polygon(Point[] points, Color edgeColor = null, Color fillColor= null)
+        public UInt32? EdgeColor { get; protected set; }
+        public UInt32? FillColor { get; protected set; }
+
+        public Polygon(Point[] points, UInt32? edgeColor = 0xFFFFFFFF, UInt32? fillColor = 0X00000000)
         {
             Points = points;
-            if (edgeColor == null)
-            {
-                EdgeColor = Color.Black;
-            }
-            else
-            {
-                EdgeColor = edgeColor;
-            }
-             if (fillColor == null)
-            {
-                FillColor = Color.TransMediumGray;
-            }
-            else
-            {
-                FillColor = fillColor;
-            }
+            EdgeColor = edgeColor;
+            FillColor = fillColor;// 0x7F7F7F7F;
         }
 
         protected Polygon()
