@@ -192,6 +192,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraHorizontal.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CameraHorizontal.Size = new System.Drawing.Size(567, 17);
             this.CameraHorizontal.TabIndex = 2;
+            this.CameraHorizontalToolTip.SetToolTip(this.CameraHorizontal, "Rotate camera around on the horizontal plane.");
             this.CameraHorizontal.ValueChanged += new System.EventHandler(this.CameraHorizontal_ValueChanged);
             // 
             // CameraVertical
@@ -205,6 +206,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraVertical.Name = "CameraVertical";
             this.CameraVertical.Size = new System.Drawing.Size(17, 570);
             this.CameraVertical.TabIndex = 3;
+            this.CameraHorizontalToolTip.SetToolTip(this.CameraVertical, "Rotate camera around the vertical plane");
             this.CameraVertical.ValueChanged += new System.EventHandler(this.CameraVertical_ValueChanged_1);
             // 
             // canvas1
@@ -212,6 +214,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.canvas1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvas1.IncludeGrid = false;
             this.canvas1.Location = new System.Drawing.Point(0, 24);
             this.canvas1.Name = "canvas1";
             this.canvas1.Size = new System.Drawing.Size(567, 570);
@@ -237,6 +240,7 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.CameraDistanceSb.Name = "CameraDistanceSb";
             this.CameraDistanceSb.Size = new System.Drawing.Size(567, 17);
             this.CameraDistanceSb.TabIndex = 5;
+            this.CameraHorizontalToolTip.SetToolTip(this.CameraDistanceSb, "Set the camera\'s distance from the origon of the scene");
             this.CameraDistanceSb.Value = 140;
             this.CameraDistanceSb.ValueChanged += new System.EventHandler(this.CameraDistanceSb_ValueChanged);
             // 
@@ -249,12 +253,13 @@ namespace dbarbee.GraphicsEngine.QuickDraw3D
             this.ViewScreenDistanceSb.Name = "ViewScreenDistanceSb";
             this.ViewScreenDistanceSb.Size = new System.Drawing.Size(567, 17);
             this.ViewScreenDistanceSb.TabIndex = 5;
+            this.CameraHorizontalToolTip.SetToolTip(this.ViewScreenDistanceSb, "Set the view screen\'s distance from the origon of the scene");
             this.ViewScreenDistanceSb.Value = 170;
             this.ViewScreenDistanceSb.ValueChanged += new System.EventHandler(this.ViewScreenDistanceSb_ValueChanged);
             // 
             // CameraHorizontalToolTip
             // 
-            this.CameraHorizontalToolTip.ToolTipTitle = "Camera Horizontal";
+            this.CameraHorizontalToolTip.ToolTipTitle = "Camera Settings";
             // 
             // statusStrip1
             // 
